@@ -23,9 +23,9 @@ exports.store = (req) => {
 
     const conn = new jsforce.Connection({ oauth2: oauth2 })
 
-    conn.authorize(req.query.code, (error, userInfo) => {
+    conn.authorize(req.query.code, (err, userInfo) => {
 
-      if (!error) {
+      if (!err) {
 
         sf_object.opened_date = new Date()
 
@@ -38,8 +38,8 @@ exports.store = (req) => {
 
       } else {
 
-        console.error(error)
-        reject(error)
+        console.error(err)
+        reject(err)
 
       }
 

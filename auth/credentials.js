@@ -31,8 +31,8 @@ exports.store = (req) => {
       } else {
 
         console.error(err)
-        reject(err)
-        
+        reject("Invalid username, password, security token; or user locked out.")
+
       }
 
     })

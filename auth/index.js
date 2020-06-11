@@ -49,7 +49,7 @@ const handleAuthRequired = (req, res, next) => {
 
   if (!isAuthEndpoint(req) && !foundConnection(req))
     return res.status(500).json({
-      message: "Not authenticated with Salesforce. Please POST to /api/auth."
+      message: "Not authenticated with Salesforce. First use /api/auth."
     })
 
   next()
@@ -84,7 +84,7 @@ const routeRequest = (req, res) => {
       .catch(err => {
         console.error(err)
         res.status(500).json({
-          message: err.message
+          message: err
         })
       })
 
@@ -98,9 +98,8 @@ const routeRequest = (req, res) => {
         res.sendStatus(200)
       })
       .catch(err => {
-        console.error(err)
         res.status(500).json({
-          message: err.message
+          message: err
         })
       })
 
@@ -124,42 +123,38 @@ const handleOauthCallback = (req, res) => {
 
     })
     .catch(error => {
-      console.error(error)
-      res.status(500).json(error.message)
+      res.status(500).json(error)
     })
 
 }
 
 const destroyConnection = (req, res) => {
 
-  if (foundConnection(req)) {
-
-    const conn = refreshConnection(req.session)
-
-    conn.logout((err) => {
-      if (!err) {
-
-        req.session.destroy(() => {
-          res.status(200).json({ message: "Logout successful." })
-        })
-
-      } else {
-
-        req.session.destroy(() => {
-          res.status(200).json({
-            error: err,
-            message: "Local session destroyed."
-          })
-        })
-
-      }
-    })
-
-  } else {
-    res.status(500).json({
+  if (!foundConnection(req))
+    return res.status(500).json({
       message: "No Salesforce connection found."
     })
-  }
+
+  const conn = refreshConnection(req.session)
+
+  conn.logout((err) => {
+    if (!err) {
+
+      req.session.destroy(() => {
+        res.status(200).json({ message: "Logout successful." })
+      })
+
+    } else {
+
+      req.session.destroy(() => {
+        res.status(200).json({
+          error: err,
+          message: "Local session destroyed."
+        })
+      })
+
+    }
+  })
 
 }
 
