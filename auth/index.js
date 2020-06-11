@@ -135,22 +135,25 @@ const handleOauthCallback = (req, res) => {
 
 const destroyConnection = (req, res) => {
 
-  if (!foundConnection)
-    return res.status(500).json({
+  if (foundConnection) {
+
+    const conn = refreshConnection(req.session)
+
+    conn.logout()
+      .then(() => {
+        req.session.destroy(() => {
+          res.status(200).json({ message: "Logout successful." })
+        })
+      })
+      .catch(err => {
+        res.status(500).json(error)
+      })
+
+  } else {
+    res.status(500).json({
       message: "No Salesforce connection found."
     })
-
-  const conn = refreshConnection(req.session)
-
-  conn.logout()
-    .then(() => {
-      req.session.destroy(() => {
-        res.status(200).json({ message: "Logout successful." })
-      })
-    })
-    .catch(err => {
-      res.status(500).json(error)
-    })
+  }
 
 }
 
@@ -170,5 +173,5 @@ module.exports = {
   oauth: oauth,
   session: session,
   credentials: credentials
-  
+
 }
