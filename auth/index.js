@@ -136,17 +136,17 @@ const destroyConnection = (req, res) => {
 
     const conn = refreshConnection(req.session)
 
-    conn.logout()
-      .then(() => {
+    conn.logout((err) => {
+      if (!err) {
         req.session.destroy(() => {
           res.status(200).json({ message: "Logout successful." })
         })
-      })
-      .catch(err => {
+      } else {
         res.status(500).json({
           message: err.message
         })
-      })
+      }
+    })
 
   } else {
     res.status(500).json({
