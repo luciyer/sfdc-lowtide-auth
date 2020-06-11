@@ -143,7 +143,7 @@ const destroyConnection = (req, res) => {
         })
       } else {
         res.status(500).json({
-          message: err.message
+          message: err
         })
       }
     })
