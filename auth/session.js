@@ -5,8 +5,8 @@ const jsforce = require("jsforce")
 exports.store = (req) => {
 
   const auth_credentials = {
-    serverUrl: req.body.credentials.server_url,
     sessionId: req.body.credentials.session_id,
+    serverUrl: req.body.credentials.server_url,
     version: process.env.API_VERSION
   }
 
