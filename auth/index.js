@@ -59,6 +59,15 @@ const handleAuthRequired = (req, res, next) => {
 
 }
 
+const visitedAuth = (req, res) => {
+
+  console.log("Authorizing with Oauth2. Redirecting.")
+
+  res.redirect(oauth.getUrl())
+
+}
+
+
 const routeRequest = (req, res) => {
 
   if (foundConnection(req))
@@ -97,12 +106,6 @@ const routeRequest = (req, res) => {
           message: err.message
         })
       })
-
-  } else if (req.body.source === "oauth") {
-
-    console.log("Authorizing with Oauth2. Redirecting.")
-
-    res.redirect(oauth.getUrl())
 
   } else {
     res.status(500).json({

@@ -34,8 +34,12 @@ app
   })
 
 app.all(config.routes.auth.required, (req, res, next) => auth.handleAuthRequired)
+
+app.get(config.routes.auth.request, (req, res) => auth.visitedAuth)
 app.post(config.routes.auth.request, (req, res) => auth.routeRequest)
+
 app.get(config.routes.auth.callback, (req, res) => auth.handleOauthCallback)
+
 app.get(config.routes.auth.revoke, (req, res) => auth.destroyConnection)
 
 app.get("/", (req, res) => {
