@@ -22,7 +22,7 @@ app
     secret: process.env.SESSION_SECRET,
     cookie: { maxAge: (60 * 60 * 1000) },
     store: new MongoStore({
-      url: "mongodb://localhost/dev"
+      url: process.env.MONGODB_URI || "mongodb://localhost/dev"
     }),
     resave: false,
     saveUninitialized: true
@@ -33,29 +33,10 @@ app
     console.log("Server Running.")
   })
 
-app.all(config.routes.auth.required, (req, res, next) => {
-
-  auth.handleAuthRequired(req, res, next)
-
-})
-
-app.post(config.routes.auth.request, (req, res) => {
-
-  auth.routeRequest(req, res)
-
-})
-
-app.get(config.routes.auth.callback, (req, res) => {
-
-  auth.handleOauthCallback(req, res)
-
-})
-
-app.get(config.routes.auth.revoke, (req, res) => {
-
-  auth.destroyConnection(req, res)
-
-})
+app.all(config.routes.auth.required, (req, res, next) => auth.handleAuthRequired)
+app.post(config.routes.auth.request, (req, res) => auth.routeRequest)
+app.get(config.routes.auth.callback, (req, res) => auth.handleOauthCallback)
+app.get(config.routes.auth.revoke, (req, res) => auth.destroyConnection)
 
 app.get("/", (req, res) => {
   res.status(200).json({
