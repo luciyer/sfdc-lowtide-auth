@@ -33,14 +33,15 @@ app
     console.log("Server Running.")
   })
 
-app.all(config.routes.auth.required, (req, res, next) => auth.handleAuthRequired)
+app.all(config.routes.auth.required, (req, res, next) => auth.handleAuthRequired(req, res, next))
 
 app.get(config.routes.auth.request, (req, res) => auth.visitedAuth(req, res))
-app.post(config.routes.auth.request, (req, res) => auth.routeRequest)
 
-app.get(config.routes.auth.callback, (req, res) => auth.handleOauthCallback)
+app.post(config.routes.auth.request, (req, res) => auth.routeRequest(req, res))
 
-app.get(config.routes.auth.revoke, (req, res) => auth.destroyConnection)
+app.get(config.routes.auth.callback, (req, res) => auth.handleOauthCallback(req, res))
+
+app.get(config.routes.auth.revoke, (req, res) => auth.destroyConnection(req, res))
 
 app.get("/", (req, res) => {
   res.status(200).json({
