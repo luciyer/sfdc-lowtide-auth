@@ -35,7 +35,7 @@ app
 
 app.all(config.routes.auth.required, (req, res, next) => auth.handleAuthRequired)
 
-app.get(config.routes.auth.request, (req, res) => auth.visitedAuth)
+app.get(config.routes.auth.request, (req, res) => auth.visitedAuth(req, res))
 app.post(config.routes.auth.request, (req, res) => auth.routeRequest)
 
 app.get(config.routes.auth.callback, (req, res) => auth.handleOauthCallback)
