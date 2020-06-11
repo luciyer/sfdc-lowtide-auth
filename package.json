@@ -1,0 +1,24 @@
+{
+  "name": "lowtide-auth",
+  "version": "1.0.0",
+  "description": "authenticate with salesforce and store in a session",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jsforce",
+    "salesforce"
+  ],
+  "author": "Luc Iyer",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "jsforce": "^1.9.3",
+    "uuid": "^8.1.0"
+  }
+}

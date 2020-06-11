@@ -1,0 +1,11 @@
+.DS_Store
+
+logs
+*.log
+
+.env
+.env.test
+
+package-lock.json
+
+node_modules/
