@@ -31,12 +31,34 @@ Routes look like this (see `config/routes.json`):
 
 ### Authentication
 
+#### Via Username & Password
+
+`POST` to `/api/auth`
+
+```
+{
+  source: "credentials",
+  credentials: {
+    username: "user@some.org",
+    password: "password123"
+  }
+}
+```
+
+#### Via Session ID & Server URL
+
+`POST` to `/api/auth`
+
 ```
 {
   source: "session",
   credentials: {
-    session_id: "",
-    server_url: ""
+    session_id: "my_session_id_goes_here",
+    server_url: "https://my.salesforce.instance.com"
   }
 }
 ```
+
+#### Via Oauth2 (Browser)
+
+`GET` to `/api/auth`
