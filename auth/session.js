@@ -20,18 +20,21 @@ exports.store = (req) => {
 
     sf_object.opened_date = new Date()
 
-    if (conn.accessToken && conn.instanceUrl) {
+    conn.identity((err, _) => {
+      if (!err) {
 
-      sf_object.auth_response = {
-        accessToken: conn.accessToken,
-        instanceUrl: conn.instanceUrl
+        sf_object.auth_response = {
+          accessToken: conn.accessToken,
+          instanceUrl: conn.instanceUrl
+        }
+
+        resolve(sf_object)
+
+      } else {
+        reject("Could not authenticate with session information.")
       }
+    })
 
-      resolve(sf_object)
-
-    } else {
-      reject("Could not authenticate with session information.")
-    }
 
   })
 
