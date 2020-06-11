@@ -2,6 +2,8 @@
 
 A starting point for developing external tooling, this package will allow you to create server-side sessions and store on those sessions three types of authentication into Salesforce: Username/Password, SessionId/ServerUrl, and Oauth2.
 
+---
+
 ### Setup
 
 Upon deploying, you'll need to define some environment variables:
@@ -28,6 +30,10 @@ Routes look like this (see `config/routes.json`):
   }
 }
 ```
+
+_Note: Any calls to `/api/*` before authentication will return a message that user must authenticate._
+
+---
 
 ### Authentication
 
@@ -62,3 +68,7 @@ Routes look like this (see `config/routes.json`):
 #### Via Oauth2 (Browser)
 
 `GET` to `/api/auth`
+
+#### Logout & Destroy Session
+
+`GET` to `/api/auth/revoke`
