@@ -156,10 +156,19 @@ const destroyConnection = (req, res) => {
 
 
 module.exports = {
+
   foundConnection: foundConnection,
   isAuthEndpoint: isAuthEndpoint,
   refreshConnection: refreshConnection,
+
+  handleAuthRequired: handleAuthRequired,
+  visitedAuth: visitedAuth,
+  routeRequest: routeRequest,
+  handleOauthCallback: handleOauthCallback,
+  destroyConnection: destroyConnection,
+
   oauth: oauth,
   session: session,
   credentials: credentials
+  
 }
