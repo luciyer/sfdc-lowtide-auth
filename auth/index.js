@@ -138,13 +138,20 @@ const destroyConnection = (req, res) => {
 
     conn.logout((err) => {
       if (!err) {
+
         req.session.destroy(() => {
           res.status(200).json({ message: "Logout successful." })
         })
+
       } else {
-        res.status(500).json({
-          message: err
+
+        req.session.destroy(() => {
+          res.status(200).json({
+            error: err,
+            message: "Local session destroyed."
+          })
         })
+
       }
     })
 
