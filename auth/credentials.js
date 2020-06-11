@@ -29,7 +29,7 @@ exports.store = (req) => {
 
       })
       .catch(err => {
-        reject(err.message)
+        reject("Could not log in. Check credentials.")
       })
 
 
