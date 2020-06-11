@@ -48,3 +48,7 @@ app.get("/", (req, res) => {
     "session": req.session
   })
 })
+
+app.get("/api/test", (req, res) => {
+  res.sendStatus(200)
+})
