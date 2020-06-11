@@ -15,8 +15,9 @@ exports.store = (req) => {
 
     const conn = new jsforce.Connection()
 
-    conn.login(username, password)
-      .then(() => {
+    conn.login(username, password, (err, _) => {
+
+      if (!err) {
 
         sf_object.opened_date = new Date()
 
@@ -27,10 +28,14 @@ exports.store = (req) => {
 
         resolve(sf_object)
 
-      })
-      .catch(err => {
-        reject("Could not log in. Check credentials.")
-      })
+      } else {
+
+        console.error(err)
+        reject(err)
+        
+      }
+
+    })
 
 
   })
