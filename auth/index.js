@@ -42,10 +42,7 @@ const foundConnection = (req) => {
 }
 
 const refreshConnection = (session) => {
-  return new jsforce.Connection({
-    accessToken: session.salesforce.auth_response.accessToken,
-    instanceUrl: session.salesforce.auth_response.instanceUrl
-  })
+  return new jsforce.Connection(session.salesforce.auth_response)
 }
 
 const handleAuthRequired = (req, res, next) => {
@@ -135,7 +132,7 @@ const handleOauthCallback = (req, res) => {
 
 const destroyConnection = (req, res) => {
 
-  if (foundConnection) {
+  if (foundConnection(req)) {
 
     const conn = refreshConnection(req.session)
 
