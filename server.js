@@ -20,7 +20,7 @@ app
   .use(session({
     genid: (req) => { return uuidv4() },
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: (60 * 60 * 1000) },
+    cookie: { maxAge: (process.env.SESSION_DURATION_MINS * 60000) },
     store: new MongoStore({
       url: process.env.MONGODB_URI || "mongodb://localhost/dev"
     }),
@@ -28,26 +28,23 @@ app
     saveUninitialized: true
   }))
 
-app
-  .listen(process.env.PORT || 8080, () => {
-    console.log("Server Running.")
-  })
+app.listen(process.env.PORT || 8080)
 
-app.all(config.routes.auth.required, (req, res, next) => auth.handleAuthRequired(req, res, next))
+app.all(config.routes.auth.required, auth.handleAuthRequired)
+app.get(config.routes.auth.request, auth.visitedAuth)
+app.post(config.routes.auth.request, auth.routeRequest)
+app.get(config.routes.auth.callback, auth.handleOauthCallback)
+app.get(config.routes.auth.revoke, auth.destroyConnection)
 
-app.get(config.routes.auth.request, (req, res) => auth.visitedAuth(req, res))
-
-app.post(config.routes.auth.request, (req, res) => auth.routeRequest(req, res))
-
-app.get(config.routes.auth.callback, (req, res) => auth.handleOauthCallback(req, res))
-
-app.get(config.routes.auth.revoke, (req, res) => auth.destroyConnection(req, res))
+// Remove two endpoints below and write your own;
 
 app.get("/", (req, res) => {
   res.status(200).json({
     "session": req.session
   })
 })
+
+// For testing that any path /api/* requires auth.
 
 app.get("/api/test", (req, res) => {
   res.sendStatus(200)
