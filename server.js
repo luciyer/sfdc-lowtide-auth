@@ -38,7 +38,3 @@ app.get(config.routes.auth.revoke, auth.destroyConnection)
 app.get(config.routes.auth.session, auth.getSessionInfo)
 
 // Write your own endpoints here!
-
-app.get("/api/test", (req, res) => {
-  res.sendStatus(200)
-})
