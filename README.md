@@ -74,3 +74,9 @@ _Note: Any calls to `/api/*` before authentication will return a message that us
 #### Logout & Destroy Session
 
 `GET` to `/api/auth/revoke`
+
+#### View Session Information
+
+_Warning: Contains access token - consider removing in production_
+
+`GET` to `/api/auth/session`
