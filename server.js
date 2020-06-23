@@ -35,16 +35,9 @@ app.get(config.routes.auth.request, auth.visitedAuth)
 app.post(config.routes.auth.request, auth.routeRequest)
 app.get(config.routes.auth.callback, auth.handleOauthCallback)
 app.get(config.routes.auth.revoke, auth.destroyConnection)
+app.get(config.routes.auth.session, auth.getSessionInfo)
 
-// Remove two endpoints below and write your own;
-
-app.get("/", (req, res) => {
-  res.status(200).json({
-    "session": req.session
-  })
-})
-
-// For testing that any path /api/* requires auth.
+// Write your own endpoints here!
 
 app.get("/api/test", (req, res) => {
   res.sendStatus(200)

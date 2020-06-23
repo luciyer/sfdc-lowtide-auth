@@ -158,6 +158,12 @@ const destroyConnection = (req, res) => {
 
 }
 
+const getSessionInfo = (req, res) => {
+  res.status(200).json({
+    "session": req.session
+  })
+}
+
 
 module.exports = {
 
@@ -170,6 +176,7 @@ module.exports = {
   routeRequest: routeRequest,
   handleOauthCallback: handleOauthCallback,
   destroyConnection: destroyConnection,
+  getSessionInfo: getSessionInfo,
 
   oauth: oauth,
   session: session,
