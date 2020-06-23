@@ -77,6 +77,6 @@ _Note: Any calls to `/api/*` before authentication will return a message that us
 
 #### View Session Information
 
-_Warning: Contains access token - consider removing in production_
+_Warning: Response contains access token - consider removing in production._
 
 `GET` to `/api/auth/session`
