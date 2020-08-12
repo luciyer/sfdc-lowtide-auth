@@ -6,7 +6,19 @@ A starting point for developing external tooling, this package will allow you to
 
 ### Setup
 
+First, clone and navigate to the project directory.
+
+```
+npm install
+```
+
 Upon deploying, you'll need to define some environment variables:
+
+```
+touch .env
+```
+
+Add the following, substituting your own values
 
 ```
 CLIENT_ID=salesforce_connected_app_client_id
@@ -18,6 +30,8 @@ API_VERSION=48.0
 ```
 
 Client ID and Client Secret are used by the Oauth2 flow.
+
+### Routes
 
 Routes look like this (see `config/routes.json`):
 
