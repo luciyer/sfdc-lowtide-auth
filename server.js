@@ -30,12 +30,21 @@ app
 
 app.listen(process.env.PORT || 8080)
 
-app.all(config.routes.auth.required, auth.handleAuthRequired)
-app.get(config.routes.auth.request, auth.visitedAuth)
-app.post(config.routes.auth.request, auth.routeRequest)
-app.get(config.routes.auth.callback, auth.handleOauthCallback)
-app.get(config.routes.auth.revoke, auth.destroyConnection)
-app.get(config.routes.auth.session, auth.getSessionInfo)
+app.route(config.routes.auth.required)
+  .all(auth.handleAuthRequired)
+
+app.route(config.routes.auth.request)
+  .get(auth.visitedAuth)
+  .post(auth.routeRequest)
+
+app.route(config.routes.auth.callback)
+  .get(auth.handleOauthCallback)
+
+app.route(config.routes.auth.revoke)
+  .get(auth.destroyConnection)
+
+app.route(config.routes.auth.session)
+  .get(auth.getSessionInfo)
 
 // Write your own endpoints here!
 
