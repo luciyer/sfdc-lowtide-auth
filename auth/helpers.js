@@ -10,11 +10,11 @@ const logNoConnectionFound = () => {
 }
 
 const isAuthenticating = (req) => {
-  return [
-    "/api/auth/login",
-    "/api/auth/sfdc",
-    "/api/auth/oauth"
+  const isAuthEndpoint = [
+    "/api/auth/login", "/api/auth/sfdc", "/api/auth/oauth"
   ].includes(req.originalUrl)
+  const isCallback = (req.path === "/api/auth/callback")
+  return (isAuthEndpoint || isCallback)
 }
 
 const foundConnection = (req) => {
