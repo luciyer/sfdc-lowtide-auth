@@ -8,15 +8,14 @@ A starting point for developing external tooling, this package will allow you to
 
 First, clone and navigate to the project directory.
 
-```
-npm install
-cd sfdc-lowtide-auth/
+```bash
+$ npm install
 ```
 
 You'll need to set some environment variables:
 
-```
-touch .env
+```bash
+$ touch .env
 ```
 
 Add the following, substituting your own values
