@@ -9,5 +9,5 @@ app
   .use(express.json())
   .use(auth.session)
   .use("/api/*", auth.required)
-  .use("/api/auth", auth.middleware)
+  .use(auth.middleware)
   .listen(process.env.PORT || 8080)

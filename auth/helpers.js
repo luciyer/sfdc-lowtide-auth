@@ -1,5 +1,7 @@
 const jsforce = require("jsforce")
 
+const { login, sfdc, oauth, callback } = require("./routes")
+
 const logConnectionFound = (req) => {
   const { user, auth } = req.session.salesforce
   console.log(`Salesforce session: ${user.username} at ${auth.instanceUrl}`)
@@ -10,12 +12,7 @@ const logNoConnectionFound = () => {
 }
 
 const isAuthenticating = (req) => {
-  return [
-    "/api/auth/login",
-    "/api/auth/sfdc",
-    "/api/auth/oauth",
-    "/api/auth/callback"
-  ].includes(req.baseUrl)
+  return [ login, sfdc, oauth, callback ].includes(req.baseUrl)
 }
 
 const foundConnection = (req) => {

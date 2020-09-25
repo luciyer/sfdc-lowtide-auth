@@ -1,0 +1,8 @@
+{
+  "login": "/api/auth/login",
+  "sfdc": "/api/auth/sfdc",
+  "oauth": "/api/auth/oauth",
+  "callback": "/api/auth/callback",
+  "session": "/api/auth/session",
+  "revoke": "/api/auth/revoke"
+}
