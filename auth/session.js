@@ -1,19 +1,17 @@
 require("dotenv").config()
 
-const { v4: uuidv4 } = require("uuid"),
-      session = require("express-session"),
-      connectMongo = require("connect-mongo");
+const redis = require("redis")
+const session = require("express-session")
 
-const MongoStore = connectMongo(session),
-      dbUri = process.env.MONGODB_URI || "mongodb://localhost/dev"
+let RedisStore = require("connect-redis")(session)
+let redisClient = redis.createClient()
 
 const sessionOptions = {
-  genid: (req) => { return uuidv4() },
   secret: process.env.SESSION_SECRET,
   cookie: { maxAge: (60 * 60000) },
-  store: new MongoStore({ url: dbUri }),
-  resave: false,
-  saveUninitialized: true
+  store: new RedisStore({ client: redisClient }),
+  saveUninitialized: false,
+  resave: false
 }
 
 module.exports = session(sessionOptions)

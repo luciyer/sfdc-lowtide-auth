@@ -4,7 +4,7 @@
   "description": "Starter app for Salesforce tooling development.",
   "main": "server.js",
   "scripts": {
-    "start" : "node server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -14,11 +14,11 @@
   "author": "Luc Iyer <luciyer@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "connect-mongo": "^3.2.0",
+    "connect-redis": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "jsforce": "^1.9.3",
-    "uuid": "^8.1.0"
+    "redis": "^3.0.2"
   }
 }
