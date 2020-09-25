@@ -19,12 +19,12 @@ const isAuthenticating = (req) => {
 
 const foundConnection = (req) => {
 
-  const { salesforce } = req.session,
-        { auth } = salesforce;
+  if (!req.session.salesforce) {
+    logNoConnectionFound(); return false;
+  }
 
-  const hasConnection = (
-    salesforce && auth !== {} && auth !== undefined
-  )
+  const { auth } = req.session.salesforce,
+        hasConnection = (auth !== {} && auth !== undefined)
 
   hasConnection
     ? logConnectionFound(req)
