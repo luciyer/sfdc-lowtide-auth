@@ -68,7 +68,7 @@ const oauth2 = new jsforce.OAuth2({
 })
 
 exports.oauthRedirect = (req, res) => {
-  res.redirect(oauth2.getAuthorizationUrl({ scope : "api id web" }));
+  res.redirect(oauth2.getAuthorizationUrl())
 }
 
 exports.handleOauthCallback = async (req, res) => {
