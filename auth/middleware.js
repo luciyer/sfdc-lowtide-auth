@@ -3,8 +3,6 @@ const express = require("express")
 const routes = require("./routes"),
       strategies = require("./strategies");
 
-console.log(routes.login)
-
 const router = express.Router()
 
 router
