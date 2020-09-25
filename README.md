@@ -10,9 +10,10 @@ First, clone and navigate to the project directory.
 
 ```
 npm install
+cd sfdc-lowtide-auth/
 ```
 
-Upon deploying, you'll need to define some environment variables:
+You'll need to set some environment variables:
 
 ```
 touch .env
@@ -24,73 +25,50 @@ Add the following, substituting your own values
 CLIENT_ID=salesforce_connected_app_client_id
 CLIENT_SECRET=salesforce_connected_app_client_secret
 SESSION_SECRET=somesecret
-SESSION_DURATION_MINS=60
 BASE_URL=https://my-base-url.herokuapp.com
-API_VERSION=48.0
 ```
 
-Client ID and Client Secret are used by the Oauth2 flow.
+Client ID and Client Secret are used by the Oauth2 flow. To retrieve these values, create a connected app in Salesforce.
 
-### Routes
 
-Routes look like this (see `config/routes.json`):
-
-```
-{
-  "auth" : {
-    "required" : "/api/*",
-    "request" : "/api/auth",
-    "callback" : "/api/auth/callback",
-    "revoke" : "/api/auth/revoke",
-    "session" : "/api/auth/session"
-  }
-}
-```
-
-_Note: Any calls to `/api/*` before authentication will return a message that user must authenticate._
+_Note: Any unauthenticated requests to `/api/*` will return a message that user is not authenticated._
 
 ---
 
-### Authentication
+### Authentication Strategies
 
-#### Via Username & Password
+#### Username & Password
 
-`POST` to `/api/auth`
+`POST` @ `/api/auth/login`
 
 ```
 {
-  source: "credentials",
-  credentials: {
-    username: "user@some.org",
-    password: "password123"
-  }
+  "username": "user@some.org",
+  "password": "password123"
 }
 ```
 
-#### Via Session ID & Server URL
+#### Session ID & Server URL (from inside Salesforce Org)
 
-`POST` to `/api/auth`
+`POST` @ `/api/auth/sfdc`
 
 ```
 {
-  source: "session",
-  credentials: {
-    session_id: "my_session_id_goes_here",
-    server_url: "https://my.salesforce.instance.com"
-  }
+  "sessionId": "my_session_id_goes_here",
+  "instanceUrl": "https://my.salesforce.instance.com"
 }
 ```
 
 #### Via Oauth2 (Browser)
 
-`GET` to `/api/auth`
-
-#### Logout & Destroy Session
-
-`GET` to `/api/auth/revoke`
+`GET` @ `/api/auth` -> directs to Salesforce Oauth2 login flow.
 
 #### View Session Information
 
 _Warning: Response contains access token - consider removing in production._
 
-`GET` to `/api/auth/session`
+`GET` @ `/api/auth/session`
+
+#### Logout & Destroy Session
+
+`GET` @ `/api/auth/revoke`
