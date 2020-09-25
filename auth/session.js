@@ -1,41 +1,19 @@
 require("dotenv").config()
 
-const jsforce = require("jsforce")
+const { v4: uuidv4 } = require("uuid"),
+      session = require("express-session"),
+      connectMongo = require("connect-mongo");
 
-exports.store = (req) => {
+const MongoStore = connectMongo(session),
+      dbUri = process.env.MONGODB_URI || "mongodb://localhost/dev"
 
-  const auth_credentials = {
-    sessionId: req.body.credentials.session_id,
-    serverUrl: req.body.credentials.server_url,
-    version: process.env.API_VERSION
-  }
-
-  const sf_object = {
-    auth_type: req.body.source
-  }
-
-  return new Promise((resolve, reject) => {
-
-    const conn = new jsforce.Connection(auth_credentials)
-
-    sf_object.opened_date = new Date()
-
-    conn.identity((err, _) => {
-      if (!err) {
-
-        sf_object.auth_response = {
-          accessToken: conn.accessToken,
-          instanceUrl: conn.instanceUrl
-        }
-
-        resolve(sf_object)
-
-      } else {
-        reject("Could not authenticate with session information.")
-      }
-    })
-
-
-  })
-
+const sessionOptions = {
+  genid: (req) => { return uuidv4() },
+  secret: process.env.SESSION_SECRET,
+  cookie: { maxAge: (60 * 60000) },
+  store: new MongoStore({ url: dbUri }),
+  resave: false,
+  saveUninitialized: true
 }
+
+module.exports = session(sessionOptions)
