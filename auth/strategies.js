@@ -64,7 +64,7 @@ exports.salesforceSession = (req, res) => {
 const oauth2 = new jsforce.OAuth2({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  redirectUri: `${process.env.BASE_URL}/api/auth/callback`
+  redirectUri: `${process.env.HOSTNAME}/api/auth/callback`
 })
 
 exports.oauthRedirect = (req, res) => {

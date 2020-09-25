@@ -1,6 +1,6 @@
 {
   "name": "lowtide-auth",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "Starter app for Salesforce tooling development.",
   "main": "server.js",
   "scripts": {

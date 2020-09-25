@@ -1,6 +1,6 @@
 # lowtide-auth
 
-A starting point for developing external tooling, this package will allow you to create server-side sessions and store on those sessions three types of authentication into Salesforce: Username/Password, SessionId/ServerUrl, and Oauth2.
+A starting point for developing external tooling, this package will allow you to create server-side sessions and store Salesforce authentication on those sessions.
 
 ---
 
@@ -25,10 +25,12 @@ Add the following, substituting your own values
 CLIENT_ID=salesforce_connected_app_client_id
 CLIENT_SECRET=salesforce_connected_app_client_secret
 SESSION_SECRET=somesecret
-BASE_URL=https://my-base-url.herokuapp.com
+HOSTNAME=http://localhost:8080
 ```
 
-Client ID and Client Secret are used by the Oauth2 flow. To retrieve these values, create a connected app in Salesforce.
+`CLIENT_ID` and `CLIENT_SECRET` are used by the Oauth2 flow. To retrieve these values, create a connected app in Salesforce.
+
+`HOSTNAME` needs to match the hostname of the callback URL you set in your connected app.
 
 
 _Note: Any unauthenticated requests to `/api/*` will return a message that user is not authenticated._
