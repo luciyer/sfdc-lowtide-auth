@@ -62,7 +62,7 @@ _Note: Any unauthenticated requests to `/api/*` will return a message that user 
 
 #### Via Oauth2 (Browser)
 
-`GET` @ `/api/auth` -> directs to Salesforce Oauth2 login flow.
+`GET` @ `/api/auth/oauth` -> directs to Salesforce Oauth2 login flow.
 
 #### View Session Information
 
